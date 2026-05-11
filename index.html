@@ -1,0 +1,2072 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="theme-color" content="#1a0a00"/>
+  <meta name="apple-mobile-web-app-capable" content="yes"/>
+  <meta name="apple-mobile-web-app-title" content="O-Bailia Restaurant"/>
+  <title>O-Bailia Restaurant — House of Taste | Sanghar</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Lato:ital,wght@0,300;0,400;0,700;1,300;1,400&family=Marcellus&display=swap" rel="stylesheet">
+  <style>
+    /* ============================================================
+       O-BAILIA RESTAURANT — PREMIUM DARK GOLD THEME
+       Design: Luxury Editorial / Art-Deco Dark
+    ============================================================ */
+    :root {
+      --gold: #c9963a;
+      --gold-light: #e8b96a;
+      --gold-pale: #f5dfa0;
+      --deep: #0d0500;
+      --dark: #150800;
+      --card: #1c0e04;
+      --card2: #221207;
+      --text: #f0ddb8;
+      --muted: #9a7d58;
+      --red: #9b2335;
+      --red-bright: #c0392b;
+      --border: rgba(201,150,58,0.2);
+      --border-strong: rgba(201,150,58,0.5);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Lato', sans-serif;
+      background: var(--deep);
+      color: var(--text);
+      overflow-x: hidden;
+      cursor: none;
+    }
+
+    /* ===== SCROLLBAR ===== */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--dark); }
+    ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 3px; }
+
+    /* ===== CUSTOM CURSOR ===== */
+    .cursor-dot {
+      position: fixed; top: 0; left: 0; width: 8px; height: 8px;
+      background: var(--gold); border-radius: 50%;
+      pointer-events: none; z-index: 9999;
+      transform: translate(-50%,-50%);
+      transition: transform 0.1s;
+    }
+    .cursor-ring {
+      position: fixed; top: 0; left: 0; width: 36px; height: 36px;
+      border: 1.5px solid var(--gold-light); border-radius: 50%;
+      pointer-events: none; z-index: 9998;
+      transform: translate(-50%,-50%);
+      transition: all 0.18s ease;
+      opacity: 0.6;
+    }
+    .cursor-ring.hovering { transform: translate(-50%,-50%) scale(1.6); border-color: var(--gold-pale); opacity: 1; }
+
+    /* ===== LOADER ===== */
+    .loader {
+      position: fixed; inset: 0; z-index: 10000;
+      background: var(--deep);
+      display: flex; align-items: center; justify-content: center;
+      flex-direction: column; gap: 18px;
+      transition: opacity 0.8s ease, visibility 0.8s ease;
+    }
+    .loader.hidden { opacity: 0; visibility: hidden; }
+    .loader-emblem {
+      width: 100px; height: 100px;
+      border: 2px solid var(--gold);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      animation: loaderSpin 2s linear infinite;
+      position: relative;
+    }
+    .loader-emblem::after {
+      content: 'OB';
+      font-family: 'Cinzel', serif;
+      font-size: 2rem; font-weight: 700;
+      color: var(--gold);
+      animation: loaderSpin 2s linear infinite reverse;
+    }
+    @keyframes loaderSpin { to { transform: rotate(360deg); } }
+    .loader-tagline {
+      font-family: 'Cinzel', serif;
+      font-size: 0.75rem; letter-spacing: 0.4em;
+      color: var(--muted); text-transform: uppercase;
+    }
+    .loader-bar {
+      width: 200px; height: 1px; background: rgba(201,150,58,0.15);
+      position: relative; overflow: hidden;
+    }
+    .loader-fill {
+      position: absolute; left: -100%; top: 0;
+      width: 100%; height: 100%;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      animation: loaderFill 1.6s ease-in-out infinite;
+    }
+    @keyframes loaderFill { to { left: 100%; } }
+
+    /* ===== NOISE TEXTURE OVERLAY ===== */
+    body::before {
+      content: '';
+      position: fixed; inset: 0; z-index: 1;
+      pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      opacity: 0.4;
+    }
+
+    /* ===== NAVBAR ===== */
+    .navbar {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      padding: 0 5%;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 72px;
+      transition: all 0.4s ease;
+      border-bottom: 1px solid transparent;
+    }
+    .navbar.scrolled {
+      background: rgba(13,5,0,0.97);
+      backdrop-filter: blur(20px);
+      border-bottom-color: var(--border);
+      height: 60px;
+    }
+    .nav-brand {
+      display: flex; align-items: center; gap: 12px;
+      cursor: pointer;
+    }
+    .nav-logo-circle {
+      width: 42px; height: 42px;
+      border: 1.5px solid var(--gold);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Cinzel', serif;
+      font-size: 1rem; font-weight: 700;
+      color: var(--gold);
+    }
+    .nav-brand-text { display: flex; flex-direction: column; line-height: 1; }
+    .nav-brand-name {
+      font-family: 'Cinzel', serif;
+      font-size: 1.1rem; font-weight: 700;
+      color: var(--gold-light); letter-spacing: 0.1em;
+    }
+    .nav-brand-sub {
+      font-size: 0.55rem; letter-spacing: 0.3em;
+      color: var(--muted); text-transform: uppercase;
+    }
+    .nav-links {
+      display: flex; align-items: center; gap: 2px;
+      list-style: none;
+    }
+    .nav-links a {
+      display: block; padding: 6px 14px;
+      font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--muted); text-decoration: none;
+      transition: color 0.3s;
+      font-weight: 400;
+    }
+    .nav-links a:hover, .nav-links a.active { color: var(--gold-light); }
+    .nav-cta {
+      display: flex; align-items: center; gap: 10px;
+    }
+    .nav-wa-btn {
+      display: flex; align-items: center; gap: 7px;
+      padding: 8px 18px;
+      background: linear-gradient(135deg, #1a7a3a, #25a550);
+      color: white; text-decoration: none;
+      border-radius: 2px;
+      font-size: 0.7rem; font-weight: 700; letter-spacing: 0.15em;
+      text-transform: uppercase;
+      transition: all 0.3s;
+    }
+    .nav-wa-btn:hover { transform: translateY(-1px); filter: brightness(1.1); }
+    .hamburger {
+      display: none; flex-direction: column; gap: 5px;
+      background: none; border: none; cursor: pointer; padding: 5px;
+    }
+    .hamburger span {
+      display: block; width: 24px; height: 1.5px;
+      background: var(--gold); transition: all 0.3s;
+    }
+
+    /* ===== HERO ===== */
+    .hero {
+      position: relative; min-height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 60% 40%, rgba(201,150,58,0.08) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 40% at 10% 80%, rgba(155,35,53,0.12) 0%, transparent 60%),
+        var(--deep);
+    }
+    .hero-grid {
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(201,150,58,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(201,150,58,0.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+      mask-image: radial-gradient(ellipse at center, black 20%, transparent 80%);
+    }
+    .hero-deco-circle {
+      position: absolute;
+      border: 1px solid var(--border);
+      border-radius: 50%;
+      animation: heroCirclePulse 4s ease-in-out infinite;
+    }
+    .hero-deco-circle:nth-child(1) { width: 500px; height: 500px; top: 50%; left: 50%; transform: translate(-50%,-50%); animation-delay: 0s; }
+    .hero-deco-circle:nth-child(2) { width: 700px; height: 700px; top: 50%; left: 50%; transform: translate(-50%,-50%); animation-delay: 0.8s; opacity: 0.5; }
+    .hero-deco-circle:nth-child(3) { width: 900px; height: 900px; top: 50%; left: 50%; transform: translate(-50%,-50%); animation-delay: 1.6s; opacity: 0.25; }
+    @keyframes heroCirclePulse {
+      0%, 100% { opacity: 0.3; }
+      50% { opacity: 0.7; }
+    }
+    .hero-content {
+      position: relative; z-index: 5;
+      text-align: center;
+      padding: 120px 20px 80px;
+      max-width: 900px;
+    }
+    .hero-eyebrow {
+      font-size: 0.65rem; letter-spacing: 0.5em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 28px;
+      display: flex; align-items: center; justify-content: center; gap: 16px;
+    }
+    .hero-eyebrow::before, .hero-eyebrow::after {
+      content: ''; width: 40px; height: 1px; background: var(--gold); opacity: 0.5;
+    }
+    .hero-emblem {
+      width: 120px; height: 120px;
+      border: 2px solid var(--gold);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 32px;
+      position: relative;
+    }
+    .hero-emblem::before {
+      content: '';
+      position: absolute; inset: 6px;
+      border: 1px solid rgba(201,150,58,0.3);
+      border-radius: 50%;
+    }
+    .hero-emblem-text {
+      font-family: 'Cinzel', serif;
+      font-size: 2.2rem; font-weight: 900;
+      color: var(--gold);
+      line-height: 1;
+    }
+    .hero-title {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(2.8rem, 7vw, 6rem);
+      font-weight: 900;
+      line-height: 0.95;
+      letter-spacing: -0.01em;
+      margin-bottom: 8px;
+      color: var(--gold-pale);
+    }
+    .hero-title-sub {
+      font-family: 'Marcellus', serif;
+      font-size: clamp(1.2rem, 3vw, 2rem);
+      color: var(--muted);
+      letter-spacing: 0.15em;
+      margin-bottom: 20px;
+    }
+    .hero-divider {
+      display: flex; align-items: center; justify-content: center; gap: 12px;
+      margin: 24px auto;
+    }
+    .hero-divider-line { width: 80px; height: 1px; background: var(--gold); opacity: 0.4; }
+    .hero-divider-diamond {
+      width: 8px; height: 8px;
+      background: var(--gold);
+      transform: rotate(45deg);
+    }
+    .hero-desc {
+      font-size: 1rem; color: var(--muted); max-width: 540px; margin: 0 auto 36px;
+      line-height: 1.8; font-weight: 300;
+    }
+    .hero-btns {
+      display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;
+      margin-bottom: 56px;
+    }
+    .btn-gold {
+      padding: 14px 36px;
+      background: linear-gradient(135deg, var(--gold), var(--gold-light));
+      color: var(--deep);
+      font-family: 'Cinzel', serif;
+      font-size: 0.75rem; font-weight: 700; letter-spacing: 0.2em;
+      text-transform: uppercase; text-decoration: none;
+      border: none; cursor: pointer;
+      clip-path: polygon(12px 0%, 100% 0%, calc(100% - 12px) 100%, 0% 100%);
+      transition: all 0.3s;
+    }
+    .btn-gold:hover { filter: brightness(1.1); transform: translateY(-2px); }
+    .btn-outline {
+      padding: 14px 36px;
+      background: transparent;
+      color: var(--gold-light);
+      font-family: 'Cinzel', serif;
+      font-size: 0.75rem; font-weight: 600; letter-spacing: 0.2em;
+      text-transform: uppercase; text-decoration: none;
+      border: 1px solid var(--gold-light);
+      cursor: pointer;
+      clip-path: polygon(12px 0%, 100% 0%, calc(100% - 12px) 100%, 0% 100%);
+      transition: all 0.3s;
+    }
+    .btn-outline:hover { background: rgba(201,150,58,0.1); transform: translateY(-2px); }
+    .hero-stats {
+      display: flex; justify-content: center; align-items: center;
+      gap: 0; flex-wrap: wrap;
+      border: 1px solid var(--border);
+      background: rgba(28,14,4,0.8);
+      backdrop-filter: blur(10px);
+      max-width: 560px; margin: 0 auto;
+    }
+    .hero-stat {
+      flex: 1; padding: 20px 24px;
+      text-align: center; min-width: 120px;
+    }
+    .hero-stat + .hero-stat { border-left: 1px solid var(--border); }
+    .hero-stat-num {
+      font-family: 'Cinzel', serif;
+      font-size: 2rem; font-weight: 900;
+      color: var(--gold); display: block;
+    }
+    .hero-stat-label {
+      font-size: 0.6rem; letter-spacing: 0.25em; text-transform: uppercase;
+      color: var(--muted); margin-top: 4px;
+    }
+    .hero-scroll-hint {
+      position: absolute; bottom: 32px; left: 50%; transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: 8px;
+      color: var(--muted); font-size: 0.6rem; letter-spacing: 0.3em; text-transform: uppercase;
+      animation: scrollHint 2s ease-in-out infinite;
+    }
+    .hero-scroll-hint::after {
+      content: '';
+      width: 1px; height: 40px;
+      background: linear-gradient(var(--gold), transparent);
+    }
+    @keyframes scrollHint { 0%,100%{ opacity:0.4; transform:translateX(-50%) translateY(0); } 50%{ opacity:1; transform:translateX(-50%) translateY(6px); } }
+
+    /* ===== TICKER ===== */
+    .ticker-wrap {
+      position: absolute; bottom: 0; left: 0; right: 0; z-index: 6;
+      overflow: hidden;
+      border-top: 1px solid var(--border);
+      background: rgba(13,5,0,0.9);
+      padding: 10px 0;
+    }
+    .ticker {
+      display: flex; gap: 60px; white-space: nowrap;
+      animation: tickerMove 30s linear infinite;
+    }
+    .ticker span {
+      font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase;
+      color: var(--gold); flex-shrink: 0;
+    }
+    .ticker span::before { content: '◆ '; font-size: 0.5em; }
+    @keyframes tickerMove { 0%{ transform: translateX(0); } 100%{ transform: translateX(-50%); } }
+
+    /* ===== SECTION BASE ===== */
+    .section { padding: 100px 5%; position: relative; }
+    .section-header { text-align: center; margin-bottom: 64px; }
+    .section-label {
+      font-size: 0.6rem; letter-spacing: 0.5em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 16px;
+      display: flex; align-items: center; justify-content: center; gap: 12px;
+    }
+    .section-label::before, .section-label::after {
+      content: ''; width: 30px; height: 1px; background: var(--gold); opacity: 0.5;
+    }
+    .section-title {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(1.8rem, 4vw, 3rem);
+      font-weight: 700; color: var(--gold-pale);
+      margin-bottom: 16px; line-height: 1.1;
+    }
+    .section-sub {
+      font-size: 0.95rem; color: var(--muted); font-weight: 300; line-height: 1.7;
+    }
+
+    /* ===== FEATURES ===== */
+    .features-section { background: var(--dark); }
+    .features-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1px; max-width: 1100px; margin: 0 auto;
+      border: 1px solid var(--border);
+    }
+    .feature-card {
+      padding: 40px 30px; text-align: center;
+      background: var(--card);
+      transition: background 0.4s;
+      position: relative; overflow: hidden;
+    }
+    .feature-card::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(201,150,58,0.05), transparent);
+      opacity: 0; transition: opacity 0.4s;
+    }
+    .feature-card:hover::before { opacity: 1; }
+    .feature-card:hover { background: var(--card2); }
+    .feature-icon {
+      font-size: 2.2rem; margin-bottom: 16px; display: block;
+    }
+    .feature-title {
+      font-family: 'Cinzel', serif;
+      font-size: 0.9rem; font-weight: 600; letter-spacing: 0.1em;
+      color: var(--gold-light); margin-bottom: 10px;
+    }
+    .feature-desc {
+      font-size: 0.82rem; color: var(--muted); line-height: 1.7; font-weight: 300;
+    }
+
+    /* ===== MENU SECTION ===== */
+    .menu-section { background: var(--deep); }
+    .menu-tabs {
+      display: flex; flex-wrap: wrap; gap: 6px; justify-content: center;
+      margin-bottom: 48px;
+    }
+    .tab-btn {
+      padding: 8px 20px;
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase;
+      cursor: pointer; transition: all 0.3s;
+      font-family: 'Lato', sans-serif;
+    }
+    .tab-btn:hover { border-color: var(--gold); color: var(--gold-light); }
+    .tab-btn.active {
+      background: var(--gold);
+      border-color: var(--gold);
+      color: var(--deep);
+      font-weight: 700;
+    }
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1px; max-width: 1200px; margin: 0 auto;
+    }
+    .menu-card {
+      background: var(--card);
+      padding: 28px;
+      transition: all 0.3s;
+      border-left: 2px solid transparent;
+      position: relative; overflow: hidden;
+    }
+    .menu-card::after {
+      content: '';
+      position: absolute; bottom: 0; left: 0; right: 0; height: 1px;
+      background: var(--border);
+    }
+    .menu-card:hover {
+      background: var(--card2);
+      border-left-color: var(--gold);
+    }
+    .menu-card-cat {
+      font-size: 0.55rem; letter-spacing: 0.35em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 10px;
+    }
+    .menu-card-name {
+      font-family: 'Marcellus', serif;
+      font-size: 1.05rem; color: var(--gold-pale);
+      margin-bottom: 8px; line-height: 1.3;
+    }
+    .menu-card-desc {
+      font-size: 0.78rem; color: var(--muted); line-height: 1.6;
+      margin-bottom: 16px; font-weight: 300;
+    }
+    .menu-card-prices {
+      display: flex; gap: 12px; align-items: center; flex-wrap: wrap;
+    }
+    .price-tag {
+      font-family: 'Cinzel', serif;
+      font-size: 0.85rem; font-weight: 600;
+      color: var(--gold);
+    }
+    .price-label {
+      font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--muted); margin-right: 2px;
+    }
+    .price-sep { color: var(--border-strong); }
+
+    /* ===== BOOKING SECTION ===== */
+    .booking-section { background: var(--dark); }
+    .booking-inner {
+      max-width: 1100px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 60px; align-items: start;
+    }
+    .booking-info-list { display: flex; flex-direction: column; gap: 0; }
+    .booking-info-item {
+      display: flex; gap: 20px; align-items: flex-start;
+      padding: 24px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .booking-info-item:first-child { border-top: 1px solid var(--border); }
+    .booking-info-icon {
+      width: 44px; height: 44px; flex-shrink: 0;
+      border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem;
+      color: var(--gold);
+    }
+    .booking-info-title {
+      font-family: 'Cinzel', serif;
+      font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--gold-light); margin-bottom: 6px;
+    }
+    .booking-info-text { font-size: 0.88rem; color: var(--muted); line-height: 1.6; }
+    .booking-form-wrap {
+      background: var(--card);
+      border: 1px solid var(--border);
+      padding: 40px;
+    }
+    .form-title {
+      font-family: 'Cinzel', serif;
+      font-size: 1.1rem; color: var(--gold-light);
+      margin-bottom: 28px; letter-spacing: 0.1em;
+    }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .form-group { margin-bottom: 18px; }
+    .form-group label {
+      display: block; font-size: 0.6rem; letter-spacing: 0.25em; text-transform: uppercase;
+      color: var(--muted); margin-bottom: 8px;
+    }
+    .form-input, .form-select, .form-textarea {
+      width: 100%; padding: 12px 16px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border);
+      color: var(--text); font-family: 'Lato', sans-serif; font-size: 0.88rem;
+      outline: none; transition: border-color 0.3s;
+      appearance: none;
+    }
+    .form-input:focus, .form-select:focus, .form-textarea:focus {
+      border-color: var(--gold);
+    }
+    .form-input::placeholder, .form-textarea::placeholder { color: rgba(154,125,88,0.5); }
+    .form-select option { background: var(--dark); }
+    .form-textarea { resize: vertical; min-height: 90px; }
+    .submit-btn {
+      width: 100%; padding: 15px;
+      background: linear-gradient(135deg, var(--gold), var(--gold-light));
+      color: var(--deep); border: none; cursor: pointer;
+      font-family: 'Cinzel', serif; font-size: 0.75rem; font-weight: 700;
+      letter-spacing: 0.3em; text-transform: uppercase;
+      transition: all 0.3s;
+    }
+    .submit-btn:hover { filter: brightness(1.08); transform: translateY(-1px); }
+
+    /* ===== ORDER SECTION ===== */
+    .order-section { background: var(--deep); }
+    .order-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1px; max-width: 1000px; margin: 0 auto 48px;
+    }
+    .order-card {
+      background: var(--card);
+      padding: 36px 30px;
+      text-align: center;
+      transition: all 0.3s;
+      border-top: 2px solid transparent;
+    }
+    .order-card:hover { background: var(--card2); border-top-color: var(--gold); }
+    .order-card-icon { font-size: 2.8rem; margin-bottom: 18px; display: block; }
+    .order-card-title {
+      font-family: 'Cinzel', serif;
+      font-size: 1rem; color: var(--gold-light); margin-bottom: 12px;
+    }
+    .order-card-text { font-size: 0.82rem; color: var(--muted); line-height: 1.7; margin-bottom: 24px; }
+    .order-card-num {
+      font-family: 'Cinzel', serif;
+      font-size: 1.1rem; color: var(--gold);
+      letter-spacing: 0.05em;
+    }
+    .order-wa-btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 14px 32px;
+      background: linear-gradient(135deg, #1a7a3a, #25a550);
+      color: white; text-decoration: none;
+      font-family: 'Cinzel', serif;
+      font-size: 0.75rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase;
+      transition: all 0.3s; margin: 0 auto;
+    }
+    .order-wa-btn:hover { filter: brightness(1.1); transform: translateY(-2px); }
+
+    /* ===== ABOUT SECTION ===== */
+    .about-section { background: var(--dark); }
+    .about-inner {
+      max-width: 1100px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 80px; align-items: center;
+    }
+    .about-img-wrap { position: relative; }
+    .about-img-frame {
+      border: 1px solid var(--border);
+      padding: 16px;
+      background: var(--card);
+    }
+    .about-img-frame img {
+      width: 100%; display: block;
+      filter: sepia(20%) contrast(1.05);
+    }
+    .about-img-badge {
+      position: absolute; bottom: -20px; right: -20px;
+      width: 100px; height: 100px;
+      background: var(--gold);
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      color: var(--deep);
+    }
+    .about-badge-num {
+      font-family: 'Cinzel', serif;
+      font-size: 1.8rem; font-weight: 900; line-height: 1;
+    }
+    .about-badge-text {
+      font-size: 0.5rem; letter-spacing: 0.2em; text-transform: uppercase;
+      font-weight: 700; text-align: center;
+    }
+    .about-content { display: flex; flex-direction: column; gap: 20px; }
+    .about-quote {
+      font-family: 'Marcellus', serif;
+      font-size: 1.5rem; color: var(--gold-pale);
+      line-height: 1.5; position: relative; padding-left: 24px;
+    }
+    .about-quote::before {
+      content: '';
+      position: absolute; left: 0; top: 0; bottom: 0;
+      width: 2px; background: var(--gold);
+    }
+    .about-text {
+      font-size: 0.9rem; color: var(--muted); line-height: 1.9; font-weight: 300;
+    }
+    .about-chips {
+      display: flex; flex-wrap: wrap; gap: 10px; margin-top: 8px;
+    }
+    .about-chip {
+      padding: 6px 16px;
+      border: 1px solid var(--border);
+      font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--gold);
+    }
+
+    /* ===== CONTACT SECTION ===== */
+    .contact-section { background: var(--deep); }
+    .contact-inner {
+      max-width: 1100px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1.4fr;
+      gap: 60px;
+    }
+    .contact-details { display: flex; flex-direction: column; gap: 0; }
+    .contact-item {
+      display: flex; gap: 18px; align-items: flex-start;
+      padding: 22px 0; border-bottom: 1px solid var(--border);
+    }
+    .contact-item:first-child { border-top: 1px solid var(--border); }
+    .contact-icon {
+      font-size: 1.2rem; width: 36px; flex-shrink: 0;
+      color: var(--gold); padding-top: 2px;
+    }
+    .contact-label {
+      font-size: 0.6rem; letter-spacing: 0.25em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 6px;
+    }
+    .contact-val { font-size: 0.9rem; color: var(--text); line-height: 1.6; }
+    .contact-val a { color: var(--text); text-decoration: none; }
+    .contact-val a:hover { color: var(--gold); }
+    .contact-map-wrap {
+      border: 1px solid var(--border);
+      overflow: hidden; position: relative;
+      min-height: 360px;
+    }
+    .contact-map-wrap iframe {
+      width: 100%; height: 100%; min-height: 360px;
+      border: none; filter: sepia(40%) contrast(0.9) brightness(0.7);
+    }
+
+    /* ===== ADMIN SECTION ===== */
+    .admin-section { background: var(--dark); }
+    .admin-login-wrap {
+      max-width: 440px; margin: 0 auto;
+      background: var(--card);
+      border: 1px solid var(--border);
+      padding: 48px 40px;
+    }
+    .admin-logged-in { display: none; }
+    .admin-panel-inner { max-width: 900px; margin: 0 auto; }
+    .admin-panel-title {
+      font-family: 'Cinzel', serif; font-size: 1.1rem; color: var(--gold-light);
+      margin-bottom: 28px;
+    }
+    .admin-menu-list { display: flex; flex-direction: column; gap: 12px; margin-bottom: 32px; }
+    .admin-menu-item {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 16px 20px;
+      background: rgba(255,255,255,0.02);
+      border: 1px solid var(--border);
+    }
+    .admin-item-info { flex: 1; }
+    .admin-item-name { font-family: 'Marcellus', serif; font-size: 0.95rem; color: var(--text); }
+    .admin-item-cat { font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); }
+    .admin-item-price { font-family: 'Cinzel', serif; font-size: 0.9rem; color: var(--gold-light); margin: 0 20px; }
+    .admin-item-actions { display: flex; gap: 8px; }
+    .btn-edit, .btn-del {
+      padding: 6px 14px; border: none; cursor: pointer;
+      font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase;
+      font-family: 'Lato', sans-serif; font-weight: 700;
+      transition: all 0.2s;
+    }
+    .btn-edit { background: transparent; border: 1px solid var(--gold); color: var(--gold); }
+    .btn-edit:hover { background: var(--gold); color: var(--deep); }
+    .btn-del { background: transparent; border: 1px solid var(--red); color: var(--red); }
+    .btn-del:hover { background: var(--red); color: white; }
+    .btn-add-item {
+      padding: 12px 28px;
+      background: linear-gradient(135deg, var(--gold), var(--gold-light));
+      color: var(--deep); border: none; cursor: pointer;
+      font-family: 'Cinzel', serif; font-size: 0.7rem; font-weight: 700;
+      letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 24px;
+    }
+    .btn-logout {
+      padding: 10px 24px;
+      background: transparent; border: 1px solid var(--red); color: var(--red);
+      font-family: 'Cinzel', serif; font-size: 0.65rem; letter-spacing: 0.2em;
+      text-transform: uppercase; cursor: pointer;
+    }
+
+    /* ===== MODAL ===== */
+    .modal-overlay {
+      position: fixed; inset: 0; z-index: 5000;
+      background: rgba(0,0,0,0.85); backdrop-filter: blur(4px);
+      display: none; align-items: center; justify-content: center; padding: 20px;
+    }
+    .modal-overlay.open { display: flex; }
+    .modal {
+      background: var(--card);
+      border: 1px solid var(--border-strong);
+      width: 100%; max-width: 560px; max-height: 90vh; overflow-y: auto;
+    }
+    .modal-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 24px 28px;
+      border-bottom: 1px solid var(--border);
+    }
+    .modal-title { font-family: 'Cinzel', serif; font-size: 1rem; color: var(--gold-light); }
+    .modal-close {
+      background: none; border: none; color: var(--muted); font-size: 1.2rem;
+      cursor: pointer; transition: color 0.2s;
+    }
+    .modal-close:hover { color: var(--gold); }
+    .modal-body { padding: 28px; }
+    .modal-footer {
+      padding: 20px 28px;
+      border-top: 1px solid var(--border);
+      display: flex; gap: 12px; justify-content: flex-end;
+    }
+
+    /* ===== AI ASSISTANT ===== */
+    .assistant-bubble {
+      position: fixed; bottom: 90px; right: 24px; z-index: 2000;
+      width: 56px; height: 56px;
+      background: linear-gradient(135deg, var(--gold), var(--gold-light));
+      border-radius: 50%; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.4rem;
+      box-shadow: 0 8px 30px rgba(201,150,58,0.4);
+      transition: all 0.3s;
+    }
+    .assistant-bubble:hover { transform: scale(1.1); }
+    .assistant-panel {
+      position: fixed; bottom: 160px; right: 24px; z-index: 2000;
+      width: 340px; max-height: 500px;
+      background: var(--card);
+      border: 1px solid var(--border-strong);
+      display: none; flex-direction: column;
+    }
+    .assistant-panel.open { display: flex; }
+    .assistant-head {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 16px 18px;
+      border-bottom: 1px solid var(--border);
+      background: var(--card2);
+    }
+    .assistant-head-info { display: flex; align-items: center; gap: 10px; }
+    .assistant-avatar {
+      width: 36px; height: 36px;
+      border: 1px solid var(--gold);
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Cinzel', serif; font-size: 0.85rem; font-weight: 700; color: var(--gold);
+    }
+    .assistant-name { font-family: 'Cinzel', serif; font-size: 0.75rem; color: var(--gold-light); }
+    .assistant-status { font-size: 0.6rem; color: #4caf50; }
+    .assistant-close-btn {
+      background: none; border: none; color: var(--muted); cursor: pointer; font-size: 1rem;
+    }
+    .assistant-msgs {
+      flex: 1; overflow-y: auto; padding: 16px;
+      display: flex; flex-direction: column; gap: 12px;
+      max-height: 280px;
+    }
+    .msg { display: flex; }
+    .msg.bot { justify-content: flex-start; }
+    .msg.user { justify-content: flex-end; }
+    .msg-bubble {
+      max-width: 85%; padding: 10px 14px;
+      font-size: 0.8rem; line-height: 1.6;
+    }
+    .msg.bot .msg-bubble { background: var(--card2); border: 1px solid var(--border); color: var(--text); }
+    .msg.user .msg-bubble { background: var(--gold); color: var(--deep); font-weight: 600; }
+    .assistant-quick {
+      display: flex; flex-wrap: wrap; gap: 6px; padding: 10px 16px;
+      border-top: 1px solid var(--border);
+    }
+    .assistant-quick button {
+      padding: 5px 12px; background: transparent;
+      border: 1px solid var(--border); color: var(--muted);
+      font-size: 0.62rem; cursor: pointer; transition: all 0.2s;
+    }
+    .assistant-quick button:hover { border-color: var(--gold); color: var(--gold); }
+    .assistant-input-wrap {
+      display: flex; padding: 12px 16px; gap: 8px;
+      border-top: 1px solid var(--border);
+    }
+    .assistant-input-wrap input {
+      flex: 1; padding: 8px 12px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border); color: var(--text);
+      font-size: 0.8rem; outline: none;
+      font-family: 'Lato', sans-serif;
+    }
+    .assistant-input-wrap input:focus { border-color: var(--gold); }
+    .assistant-input-wrap button {
+      padding: 8px 14px; background: var(--gold);
+      border: none; color: var(--deep); cursor: pointer; font-size: 0.9rem;
+    }
+
+    /* ===== WA FLOAT ===== */
+    .wa-float {
+      position: fixed; bottom: 24px; right: 24px; z-index: 1999;
+      width: 56px; height: 56px;
+      background: linear-gradient(135deg, #1a7a3a, #25a550);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      color: white; text-decoration: none;
+      box-shadow: 0 6px 24px rgba(37,165,80,0.4);
+      transition: all 0.3s;
+    }
+    .wa-float:hover { transform: scale(1.1); }
+
+    /* ===== FOOTER ===== */
+    .footer {
+      background: var(--dark);
+      border-top: 1px solid var(--border);
+    }
+    .footer-top {
+      display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 48px; padding: 64px 5%;
+      max-width: 1400px; margin: 0 auto;
+    }
+    .footer-brand-name {
+      font-family: 'Cinzel', serif;
+      font-size: 1.6rem; font-weight: 900;
+      color: var(--gold-pale); margin-bottom: 6px;
+    }
+    .footer-brand-tag {
+      font-size: 0.6rem; letter-spacing: 0.4em; text-transform: uppercase;
+      color: var(--muted); margin-bottom: 18px;
+    }
+    .footer-brand-text { font-size: 0.82rem; color: var(--muted); line-height: 1.8; font-weight: 300; margin-bottom: 20px; }
+    .footer-socials { display: flex; gap: 10px; }
+    .footer-social {
+      width: 38px; height: 38px;
+      border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem; text-decoration: none; color: var(--muted);
+      transition: all 0.3s;
+    }
+    .footer-social:hover { border-color: var(--gold); color: var(--gold); }
+    .footer-col-title {
+      font-family: 'Cinzel', serif;
+      font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--gold-light); margin-bottom: 20px;
+      padding-bottom: 12px; border-bottom: 1px solid var(--border);
+    }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer-col ul li, .footer-col ul li a {
+      font-size: 0.8rem; color: var(--muted);
+      text-decoration: none; transition: color 0.2s;
+    }
+    .footer-col ul li a:hover { color: var(--gold); }
+    .footer-bottom {
+      border-top: 1px solid var(--border);
+      padding: 20px 5%;
+      display: flex; align-items: center; justify-content: space-between;
+      max-width: 1400px; margin: 0 auto;
+      font-size: 0.7rem; color: var(--muted); letter-spacing: 0.1em;
+    }
+
+    /* ===== TOAST ===== */
+    .toast {
+      position: fixed; bottom: 90px; left: 50%; transform: translateX(-50%) translateY(20px);
+      z-index: 9999;
+      padding: 12px 28px;
+      background: var(--gold); color: var(--deep);
+      font-family: 'Cinzel', serif; font-size: 0.75rem; font-weight: 700;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      opacity: 0; transition: all 0.4s;
+      pointer-events: none;
+    }
+    .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+    /* ===== PRICE TYPE SELECT ===== */
+    .price-type-select { display: flex; gap: 8px; margin-bottom: 16px; }
+    .price-type-btn {
+      padding: 6px 16px;
+      background: transparent; border: 1px solid var(--border);
+      color: var(--muted); font-size: 0.65rem; letter-spacing: 0.15em;
+      text-transform: uppercase; cursor: pointer; transition: all 0.2s;
+    }
+    .price-type-btn.active { background: var(--gold); border-color: var(--gold); color: var(--deep); font-weight: 700; }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 900px) {
+      .booking-inner, .about-inner, .contact-inner { grid-template-columns: 1fr; gap: 40px; }
+      .footer-top { grid-template-columns: 1fr 1fr; gap: 32px; }
+      .footer-bottom { flex-direction: column; gap: 8px; text-align: center; }
+      .nav-links { display: none; position: fixed; inset: 0; top: 72px; background: rgba(13,5,0,0.98); flex-direction: column; justify-content: center; align-items: center; gap: 20px; }
+      .nav-links.open { display: flex; }
+      .nav-links a { font-size: 1rem; letter-spacing: 0.3em; }
+      .hamburger { display: flex; }
+      .form-row { grid-template-columns: 1fr; }
+      .about-img-badge { bottom: -16px; right: -8px; width: 80px; height: 80px; }
+    }
+    @media (max-width: 600px) {
+      .footer-top { grid-template-columns: 1fr; }
+      .hero-stats { flex-direction: column; }
+      .hero-stat + .hero-stat { border-left: none; border-top: 1px solid var(--border); }
+      .booking-form-wrap { padding: 24px 20px; }
+    }
+
+    /* ===== REVEAL ANIMATION ===== */
+    .reveal {
+      opacity: 0; transform: translateY(30px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+  </style>
+</head>
+<body>
+
+<!-- CURSOR -->
+<div class="cursor-dot" id="cursorDot"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- LOADER -->
+<div class="loader" id="loader">
+  <div class="loader-emblem"></div>
+  <div class="loader-tagline">House of Taste — Sanghar</div>
+  <div class="loader-bar"><div class="loader-fill"></div></div>
+</div>
+
+<!-- NAVBAR -->
+<nav class="navbar" id="navbar">
+  <div class="nav-brand" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+    <div class="nav-logo-circle">OB</div>
+    <div class="nav-brand-text">
+      <span class="nav-brand-name">O-BAILIA</span>
+      <span class="nav-brand-sub">House of Taste</span>
+    </div>
+  </div>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#home" class="nav-link active">Home</a></li>
+    <li><a href="#menu" class="nav-link">Menu</a></li>
+    <li><a href="#booking" class="nav-link">Reserve</a></li>
+    <li><a href="#order" class="nav-link">Order</a></li>
+    <li><a href="#about" class="nav-link">About</a></li>
+    <li><a href="#contact" class="nav-link">Contact</a></li>
+    <li><a href="#admin" class="nav-link">Admin</a></li>
+  </ul>
+  <div class="nav-cta">
+    <a href="https://wa.me/923357367364" target="_blank" class="nav-wa-btn">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      Order Now
+    </a>
+    <button class="hamburger" id="hamburger">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-deco-circle"></div>
+  <div class="hero-deco-circle"></div>
+  <div class="hero-deco-circle"></div>
+
+  <div class="hero-content">
+    <div class="hero-eyebrow">Est. Sanghar, Sindh — Pakistan</div>
+    <div class="hero-emblem">
+      <span class="hero-emblem-text">OB</span>
+    </div>
+    <h1 class="hero-title">O-BAILIA</h1>
+    <p class="hero-title-sub">Restaurant</p>
+    <div class="hero-divider">
+      <div class="hero-divider-line"></div>
+      <div class="hero-divider-diamond"></div>
+      <div class="hero-divider-line"></div>
+    </div>
+    <p class="hero-desc">An unparalleled culinary journey through authentic Pakistani flavours — from smoky BBQ and rich Karahis to gourmet pizza and artisan desserts.</p>
+    <div class="hero-btns">
+      <a href="#booking" class="btn-gold">Reserve a Table</a>
+      <a href="#menu" class="btn-outline">Explore Menu</a>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <span class="hero-stat-num" data-target="200">0</span>
+        <div class="hero-stat-label">Menu Items</div>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-num" data-target="8000">0</span>
+        <div class="hero-stat-label">Happy Guests</div>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-num" data-target="5">0</span>
+        <div class="hero-stat-label" style="white-space:nowrap;">★ Rating</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-scroll-hint">Scroll Down</div>
+
+  <!-- TICKER -->
+  <div class="ticker-wrap">
+    <div class="ticker">
+      <span>Chicken Karahi</span><span>Mutton Mandi</span><span>BBQ Platter</span><span>Special Pizza</span><span>Desi Biryani</span><span>Paneer Special</span><span>Rolls & Wraps</span><span>Milkshakes & Desserts</span><span>Chicken Karahi</span><span>Mutton Mandi</span><span>BBQ Platter</span><span>Special Pizza</span><span>Desi Biryani</span><span>Paneer Special</span><span>Rolls & Wraps</span><span>Milkshakes & Desserts</span>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features-section section" id="features">
+  <div class="features-grid reveal">
+    <div class="feature-card">
+      <span class="feature-icon">🍖</span>
+      <div class="feature-title">Authentic BBQ</div>
+      <div class="feature-desc">Slow-marinated meats grilled over open flame — tikkas, karahis, and platters crafted by master chefs.</div>
+    </div>
+    <div class="feature-card">
+      <span class="feature-icon">🚗</span>
+      <div class="feature-title">Home Delivery</div>
+      <div class="feature-desc">Fresh, hot food delivered to your doorstep across Sanghar. Order via WhatsApp or call directly.</div>
+    </div>
+    <div class="feature-card">
+      <span class="feature-icon">🏛️</span>
+      <div class="feature-title">Premium Ambiance</div>
+      <div class="feature-desc">A sophisticated dining atmosphere designed for families, gatherings, and special celebrations.</div>
+    </div>
+    <div class="feature-card">
+      <span class="feature-icon">🌿</span>
+      <div class="feature-title">Fresh Ingredients</div>
+      <div class="feature-desc">Only the finest, freshest ingredients sourced daily for every dish on our extensive menu.</div>
+    </div>
+  </div>
+</section>
+
+<!-- MENU -->
+<section class="menu-section section" id="menu">
+  <div class="section-header reveal">
+    <div class="section-label">Our Menu</div>
+    <h2 class="section-title">A Feast for Every Craving</h2>
+    <p class="section-sub">Explore our extensive menu of authentic Pakistani & international cuisine</p>
+  </div>
+  <div class="menu-tabs reveal" id="menuTabs">
+    <button class="tab-btn active" data-cat="all">All Items</button>
+    <button class="tab-btn" data-cat="BBQ">BBQ</button>
+    <button class="tab-btn" data-cat="Karahi">Karahi</button>
+    <button class="tab-btn" data-cat="Handi">Handi</button>
+    <button class="tab-btn" data-cat="Biryani">Biryani</button>
+    <button class="tab-btn" data-cat="Pizza">Pizza</button>
+    <button class="tab-btn" data-cat="Burgers">Burgers</button>
+    <button class="tab-btn" data-cat="Pasta">Pasta</button>
+    <button class="tab-btn" data-cat="Chinese">Chinese</button>
+    <button class="tab-btn" data-cat="Rolls">Rolls</button>
+    <button class="tab-btn" data-cat="Appetizers">Appetizers</button>
+    <button class="tab-btn" data-cat="Salads">Salads</button>
+    <button class="tab-btn" data-cat="Breads">Breads</button>
+    <button class="tab-btn" data-cat="Beverages">Drinks</button>
+    <button class="tab-btn" data-cat="Desserts">Desserts</button>
+    <button class="tab-btn" data-cat="Paneer">Paneer</button>
+  </div>
+  <div class="menu-grid" id="menuGrid"></div>
+</section>
+
+<!-- BOOKING -->
+<section class="booking-section section" id="booking">
+  <div class="section-header reveal">
+    <div class="section-label">Reservations</div>
+    <h2 class="section-title">Reserve Your Table</h2>
+    <p class="section-sub">Book your exclusive dining experience at O-Bailia Restaurant</p>
+  </div>
+  <div class="booking-inner reveal">
+    <div>
+      <div class="booking-info-list">
+        <div class="booking-info-item">
+          <div class="booking-info-icon">🕐</div>
+          <div>
+            <div class="booking-info-title">Opening Hours</div>
+            <div class="booking-info-text">Daily: 11:00 AM – 2:00 AM</div>
+          </div>
+        </div>
+        <div class="booking-info-item">
+          <div class="booking-info-icon">📍</div>
+          <div>
+            <div class="booking-info-title">Location</div>
+            <div class="booking-info-text">Kot Sultan Nawabshah Road, Sanghar, Sindh</div>
+          </div>
+        </div>
+        <div class="booking-info-item">
+          <div class="booking-info-icon">📞</div>
+          <div>
+            <div class="booking-info-title">Reservations</div>
+            <div class="booking-info-text">0335-7367364<br>0325-7367364</div>
+          </div>
+        </div>
+        <div class="booking-info-item">
+          <div class="booking-info-icon">👨‍💼</div>
+          <div>
+            <div class="booking-info-title">Restaurant Manager</div>
+            <div class="booking-info-text">0334-7367367</div>
+          </div>
+        </div>
+        <div class="booking-info-item">
+          <div class="booking-info-icon">🚗</div>
+          <div>
+            <div class="booking-info-title">Services</div>
+            <div class="booking-info-text">Dine-in · Take Away · Home Delivery</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="booking-form-wrap">
+      <div class="form-title">Make a Reservation</div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Full Name</label>
+          <input type="text" class="form-input" id="bkName" placeholder="Your name">
+        </div>
+        <div class="form-group">
+          <label>Phone Number</label>
+          <input type="tel" class="form-input" id="bkPhone" placeholder="03xx-xxxxxxx">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Date</label>
+          <input type="date" class="form-input" id="bkDate">
+        </div>
+        <div class="form-group">
+          <label>Time</label>
+          <input type="time" class="form-input" id="bkTime">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Guests</label>
+          <select class="form-select" id="bkGuests">
+            <option value="">Select</option>
+            <option>1–2 Guests</option>
+            <option>3–5 Guests</option>
+            <option>6–10 Guests</option>
+            <option>10+ Guests</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Occasion</label>
+          <select class="form-select" id="bkOccasion">
+            <option value="">Select</option>
+            <option>Regular Dining</option>
+            <option>Birthday</option>
+            <option>Family Gathering</option>
+            <option>Business Dinner</option>
+            <option>Anniversary</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Special Requests</label>
+        <textarea class="form-textarea" id="bkNote" placeholder="Any special requests or dietary requirements..."></textarea>
+      </div>
+      <button class="submit-btn" onclick="submitBooking()">Confirm Reservation</button>
+    </div>
+  </div>
+</section>
+
+<!-- ORDER ONLINE -->
+<section class="order-section section" id="order">
+  <div class="section-header reveal">
+    <div class="section-label">Order Online</div>
+    <h2 class="section-title">Taste Delivered to You</h2>
+    <p class="section-sub">Fast home delivery across Sanghar — place your order now</p>
+  </div>
+  <div class="order-grid reveal">
+    <div class="order-card">
+      <span class="order-card-icon">📱</span>
+      <div class="order-card-title">WhatsApp Order</div>
+      <div class="order-card-text">Message us your order on WhatsApp for quick and easy processing.</div>
+      <div class="order-card-num">0335-7367364</div>
+    </div>
+    <div class="order-card">
+      <span class="order-card-icon">📞</span>
+      <div class="order-card-title">Call to Order</div>
+      <div class="order-card-text">Call us directly and our team will take your order immediately.</div>
+      <div class="order-card-num">0325-7367364</div>
+    </div>
+    <div class="order-card">
+      <span class="order-card-icon">🏪</span>
+      <div class="order-card-title">Take Away</div>
+      <div class="order-card-text">Order ahead and pick up fresh food from our restaurant at your convenience.</div>
+      <div class="order-card-num">Walk In</div>
+    </div>
+  </div>
+  <div style="text-align:center;" class="reveal">
+    <a href="https://wa.me/923357367364?text=Assalamu%20Alaikum!%20I%20would%20like%20to%20place%20an%20order%20from%20O-Bailia%20Restaurant." target="_blank" class="order-wa-btn">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      Order on WhatsApp
+    </a>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about-section section" id="about">
+  <div class="section-header reveal">
+    <div class="section-label">Our Story</div>
+    <h2 class="section-title">The House of Taste</h2>
+  </div>
+  <div class="about-inner reveal">
+    <div class="about-img-wrap">
+      <div class="about-img-frame">
+        <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=600&q=80" alt="O-Bailia Restaurant Dining" onerror="this.src='https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=600&q=80'"/>
+      </div>
+      <div class="about-img-badge">
+        <div class="about-badge-num">OB</div>
+        <div class="about-badge-text">House of Taste</div>
+      </div>
+    </div>
+    <div class="about-content">
+      <p class="about-quote">"Every dish tells a story of tradition, passion, and perfection."</p>
+      <p class="about-text">O-Bailia Restaurant is Sanghar's premier dining destination, proudly serving the finest Pakistani and international cuisine. Located on Kot Sultan Nawabshah Road, we are committed to delivering an extraordinary culinary experience with every visit.</p>
+      <p class="about-text">From our signature smoky BBQ platters and rich, aromatic Karahis to our innovative Paneer Specials and gourmet Pizzas — every dish is crafted with the finest ingredients and decades of culinary expertise.</p>
+      <div class="about-chips">
+        <span class="about-chip">Dine In</span>
+        <span class="about-chip">Take Away</span>
+        <span class="about-chip">Home Delivery</span>
+        <span class="about-chip">BBQ Specialist</span>
+        <span class="about-chip">Mandi Expert</span>
+        <span class="about-chip">Family Friendly</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact-section section" id="contact">
+  <div class="section-header reveal">
+    <div class="section-label">Contact & Location</div>
+    <h2 class="section-title">Find Us in Sanghar</h2>
+    <p class="section-sub">Visit us or get in touch — we're always happy to serve you</p>
+  </div>
+  <div class="contact-inner reveal">
+    <div class="contact-details">
+      <div class="contact-item">
+        <div class="contact-icon">📍</div>
+        <div>
+          <div class="contact-label">Address</div>
+          <div class="contact-val">Kot Sultan Nawabshah Road,<br>Sanghar, Sindh, Pakistan</div>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">📞</div>
+        <div>
+          <div class="contact-label">Phone</div>
+          <div class="contact-val">
+            <a href="tel:+923357367364">0335-7367364</a><br>
+            <a href="tel:+923257367364">0325-7367364</a>
+          </div>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">👨‍💼</div>
+        <div>
+          <div class="contact-label">Restaurant Manager</div>
+          <div class="contact-val"><a href="tel:+923347367367">0334-7367367</a></div>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">🕐</div>
+        <div>
+          <div class="contact-label">Opening Hours</div>
+          <div class="contact-val">Daily: 11:00 AM – 2:00 AM</div>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">💬</div>
+        <div>
+          <div class="contact-label">WhatsApp</div>
+          <div class="contact-val"><a href="https://wa.me/923357367364" target="_blank">0335-7367364</a></div>
+        </div>
+      </div>
+    </div>
+    <div class="contact-map-wrap">
+      <iframe
+        src="https://maps.google.com/maps?q=Kot+Sultan+Nawabshah+Road+Sanghar+Sindh+Pakistan&output=embed&z=15"
+        allowfullscreen loading="lazy"
+        title="O-Bailia Restaurant Location">
+      </iframe>
+    </div>
+  </div>
+</section>
+
+<!-- ADMIN -->
+<section class="admin-section section" id="admin">
+  <div class="section-header reveal">
+    <div class="section-label">Management</div>
+    <h2 class="section-title">Admin Panel</h2>
+  </div>
+
+  <!-- LOGIN -->
+  <div class="admin-login-wrap reveal" id="adminLogin">
+    <div class="form-title">Staff Login</div>
+    <div class="form-group">
+      <label>Username</label>
+      <input type="text" class="form-input" id="adminUser" placeholder="Enter username">
+    </div>
+    <div class="form-group">
+      <label>Password</label>
+      <input type="password" class="form-input" id="adminPass" placeholder="Enter password">
+    </div>
+    <button class="submit-btn" onclick="adminLogin()">Login to Dashboard</button>
+  </div>
+
+  <!-- DASHBOARD -->
+  <div class="admin-logged-in" id="adminDash">
+    <div class="admin-panel-inner">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:28px;">
+        <div class="admin-panel-title">Menu Management</div>
+        <div style="display:flex;gap:12px;">
+          <button class="btn-add-item" onclick="openItemModal()">+ Add New Item</button>
+          <button class="btn-logout" onclick="adminLogout()">Logout</button>
+        </div>
+      </div>
+      <div class="admin-menu-list" id="adminMenuList"></div>
+    </div>
+  </div>
+</section>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title" id="modalTitle">Add Menu Item</div>
+      <button class="modal-close" onclick="closeItemModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-row">
+        <div class="form-group">
+          <label>Item Name</label>
+          <input type="text" class="form-input" id="iName" placeholder="e.g. Chicken Karahi">
+        </div>
+        <div class="form-group">
+          <label>Category</label>
+          <select class="form-select" id="iCat">
+            <option>BBQ</option><option>Karahi</option><option>Handi</option>
+            <option>Biryani</option><option>Pizza</option><option>Burgers</option>
+            <option>Pasta</option><option>Chinese</option><option>Rolls</option>
+            <option>Appetizers</option><option>Salads</option><option>Breads</option>
+            <option>Beverages</option><option>Desserts</option><option>Paneer</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Price Type</label>
+        <div class="price-type-select">
+          <button class="price-type-btn active" onclick="setPriceType('single',this)">Single Price</button>
+          <button class="price-type-btn" onclick="setPriceType('hf',this)">Half / Full</button>
+          <button class="price-type-btn" onclick="setPriceType('sml',this)">S / M / L</button>
+        </div>
+      </div>
+      <div id="priceSingle">
+        <div class="form-group">
+          <label>Price (Rs.)</label>
+          <input type="number" class="form-input" id="iPrice" placeholder="e.g. 599">
+        </div>
+      </div>
+      <div id="priceHF" style="display:none;">
+        <div class="form-row">
+          <div class="form-group"><label>Half (Rs.)</label><input type="number" class="form-input" id="iPriceH" placeholder="e.g. 499"></div>
+          <div class="form-group"><label>Full (Rs.)</label><input type="number" class="form-input" id="iPriceF" placeholder="e.g. 899"></div>
+        </div>
+      </div>
+      <div id="priceSML" style="display:none;">
+        <div class="form-row">
+          <div class="form-group"><label>Small (Rs.)</label><input type="number" class="form-input" id="iPriceS" placeholder="499"></div>
+          <div class="form-group"><label>Medium (Rs.)</label><input type="number" class="form-input" id="iPriceM" placeholder="799"></div>
+        </div>
+        <div class="form-group"><label>Large (Rs.)</label><input type="number" class="form-input" id="iPriceL" placeholder="1099"></div>
+      </div>
+      <div class="form-group">
+        <label>Description</label>
+        <textarea class="form-textarea" id="iDesc" placeholder="Brief description of this dish..." rows="2"></textarea>
+      </div>
+      <input type="hidden" id="editIdx" value="-1">
+    </div>
+    <div class="modal-footer">
+      <button class="btn-outline" onclick="closeItemModal()" style="padding:10px 24px;cursor:pointer;">Cancel</button>
+      <button class="btn-gold" onclick="saveItem()" style="padding:10px 28px;cursor:pointer;">Save Item</button>
+    </div>
+  </div>
+</div>
+
+<!-- AI ASSISTANT -->
+<div class="assistant-bubble" id="aiBubble" onclick="toggleAssistant()" title="OB Assistant">
+  🍽️
+</div>
+<div class="assistant-panel" id="aiPanel">
+  <div class="assistant-head">
+    <div class="assistant-head-info">
+      <div class="assistant-avatar">OB</div>
+      <div>
+        <div class="assistant-name">O-Bailia Assistant</div>
+        <div class="assistant-status">● Online Now</div>
+      </div>
+    </div>
+    <button class="assistant-close-btn" onclick="toggleAssistant()">✕</button>
+  </div>
+  <div class="assistant-msgs" id="aiMsgs">
+    <div class="msg bot">
+      <div class="msg-bubble">
+        Assalamu Alaikum! 👋<br><br>
+        I'm the O-Bailia Assistant. I can help with:<br>
+        🍽️ <strong>Menu Information</strong><br>
+        🪑 <strong>Table Reservations</strong><br>
+        📦 <strong>Order Placement</strong><br>
+        📍 <strong>Location & Hours</strong><br><br>
+        How can I assist you today?
+      </div>
+    </div>
+  </div>
+  <div class="assistant-quick">
+    <button onclick="quickAsk('Book a table')">📅 Book Table</button>
+    <button onclick="quickAsk('What are your timings?')">🕐 Timings</button>
+    <button onclick="quickAsk('How to order food?')">📦 Order</button>
+    <button onclick="quickAsk('Where are you located?')">📍 Location</button>
+  </div>
+  <div class="assistant-input-wrap">
+    <input type="text" id="aiInput" placeholder="Ask anything..." onkeydown="if(event.key==='Enter')sendAI()">
+    <button onclick="sendAI()">➤</button>
+  </div>
+</div>
+
+<!-- WA FLOAT -->
+<a href="https://wa.me/923357367364" class="wa-float" target="_blank" title="Order on WhatsApp">
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-top">
+    <div>
+      <div class="footer-brand-name">O-BAILIA</div>
+      <div class="footer-brand-tag">House of Taste — Sanghar</div>
+      <p class="footer-brand-text">Sanghar's premier dining destination serving authentic Pakistani cuisine with passion and excellence. Dine in, take away, or enjoy home delivery.</p>
+      <div class="footer-socials">
+        <a href="https://wa.me/923357367364" target="_blank" class="footer-social">💬</a>
+        <a href="https://maps.app.goo.gl/NhaFR55p2ieUN4vU7" target="_blank" class="footer-social">📍</a>
+        <a href="tel:+923357367364" class="footer-social">📞</a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">Quick Links</div>
+      <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#menu">Menu</a></li>
+        <li><a href="#booking">Reserve Table</a></li>
+        <li><a href="#order">Order Online</a></li>
+        <li><a href="#about">About Us</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">Specialties</div>
+      <ul>
+        <li><a href="#menu">BBQ Platters</a></li>
+        <li><a href="#menu">Chicken Karahi</a></li>
+        <li><a href="#menu">Mutton Mandi</a></li>
+        <li><a href="#menu">Special Pizzas</a></li>
+        <li><a href="#menu">Paneer Dishes</a></li>
+        <li><a href="#menu">Desi Biryani</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">Contact</div>
+      <ul>
+        <li>📞 0335-7367364</li>
+        <li>📞 0325-7367364</li>
+        <li>👨‍💼 0334-7367367</li>
+        <li>📍 Kot Sultan Nawabshah Rd</li>
+        <li>🌍 Sanghar, Sindh</li>
+        <li>🕐 11:00 AM – 2:00 AM</li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 O-Bailia Restaurant — House of Taste. All rights reserved.</span>
+    <span>Sanghar, Sindh, Pakistan</span>
+  </div>
+</footer>
+
+<script>
+// ============================================================
+// O-BAILIA RESTAURANT — app.js (inline)
+// ============================================================
+
+/* ===== MENU DATA ===== */
+let menuData = [
+  // VEGETABLE
+  {name:'Daal Mash', cat:'Breads', price:599, desc:'Classic Pakistani lentil dish'},
+  {name:'Daal Makhni', cat:'Breads', price:699, desc:'Buttery black lentil specialty'},
+  {name:'Shahi Daal', cat:'Breads', price:699, desc:'Royal lentil preparation'},
+  {name:'Mix Vegetable', cat:'Breads', price:699, desc:'Seasonal mixed vegetables'},
+  // BREADS
+  {name:'Tandoori Roti', cat:'Breads', price:30, desc:'Classic tandoor bread'},
+  {name:'Plain Nan', cat:'Breads', price:40, desc:'Soft leavened flatbread'},
+  {name:'Roghni Nan', cat:'Breads', price:65, desc:'Buttery glazed naan'},
+  {name:'Garlic Nan', cat:'Breads', price:65, desc:'Aromatic garlic naan'},
+  {name:'Puri Paratha', cat:'Breads', price:70, desc:'Fried layered flatbread'},
+  {name:'Chapati', cat:'Breads', price:30, desc:'Whole wheat flatbread'},
+  // SALADS
+  {name:'Fresh Green Salad', cat:'Salads', price:149, desc:'Crisp garden greens'},
+  {name:'Chicken Pineapple Salad', cat:'Salads', price:599, desc:'Tropical chicken salad'},
+  {name:'Russian Salad', cat:'Salads', price:599, desc:'Creamy classic Russian salad'},
+  {name:'Mexican Chicken Salad', cat:'Salads', price:599, desc:'Zesty Mexican style salad'},
+  {name:'Raita', cat:'Salads', price:149, desc:'Cooling yogurt dip'},
+  // BBQ
+  {name:'Tikka Boti (Half)', cat:'BBQ', price:499, desc:'Bone-in chicken tikka - Half portion'},
+  {name:'Tikka Boti (Full)', cat:'BBQ', price:849, desc:'Bone-in chicken tikka - Full portion'},
+  {name:'Malai Boti (Half)', cat:'BBQ', price:599, desc:'Creamy malai chicken - Half'},
+  {name:'Malai Boti (Full)', cat:'BBQ', price:899, desc:'Creamy malai chicken - Full'},
+  {name:'Behari Boti (Half)', cat:'BBQ', price:599, desc:'Spiced beef tikka - Half'},
+  {name:'Behari Boti (Full)', cat:'BBQ', price:899, desc:'Spiced beef tikka - Full'},
+  {name:'Chicken Cheese Boti (Half)', cat:'BBQ', price:649, desc:'Cheese stuffed chicken - Half'},
+  {name:'Chicken Cheese Boti (Full)', cat:'BBQ', price:999, desc:'Cheese stuffed chicken - Full'},
+  {name:'Chicken Tikka Pcs', cat:'BBQ', price:449, desc:'Individual chicken tikka pieces'},
+  {name:'Chicken Malai Tikka', cat:'BBQ', price:449, desc:'Creamy malai tikka'},
+  {name:'Kalmi Tikka (6 Pcs)', cat:'BBQ', price:999, desc:'Drumstick tikka – 6 pieces'},
+  {name:'Chicken Kabab', cat:'BBQ', price:699, desc:'Classic chicken seekh kabab'},
+  {name:'Reshmi Kabab', cat:'BBQ', price:799, desc:'Silky smooth chicken kabab'},
+  {name:'Gola Kabab', cat:'BBQ', price:799, desc:'Round juicy kababs'},
+  {name:'Chicken Turkish Kabab', cat:'BBQ', price:799, desc:'Turkish style chicken kabab'},
+  {name:'Labnese Kabab', cat:'BBQ', price:999, desc:'Lebanese inspired kabab'},
+  {name:'O-Bailia Special Kabab', cat:'BBQ', price:1099, desc:'Signature house special kabab'},
+  {name:'Mutton Seekh Kabab', cat:'BBQ', price:1399, desc:'Premium mutton minced kabab'},
+  {name:'Mutton Turkish Kabab', cat:'BBQ', price:1449, desc:'Turkish style mutton kabab'},
+  {name:'Grill Fish (Half)', cat:'BBQ', price:1799, desc:'Fresh grilled fish - Half'},
+  {name:'Grill Fish (Full)', cat:'BBQ', price:2999, desc:'Fresh grilled fish - Full'},
+  // BBQ PLATTERS
+  {name:'BBQ Platter Full', cat:'BBQ', price:4199, desc:'4pcs Kalmi Tikka, 4pcs Malai Boti, 4pcs Chicken Cheese Boti, 4pcs Behari Boti, 4pcs Chicken Tikka Boti, 2pcs Reshmi Kabab, 2pcs Chicken Kabab, 4pcs Chicken Gola Kabab, Afghani Palao, 1 Puri Paratha, 1 Naan, Fresh Green Salad, BBQ Sauce'},
+  {name:'BBQ Platter Half', cat:'BBQ', price:2499, desc:'2pcs each: Kalmi Tikka, Malai Boti, Chicken Cheese Boti, Behari Boti, Chicken Tikka Boti, 1pcs Reshmi Kabab, 1pcs Chicken Kabab, 2pcs Chicken Gola Kabab, Afghani Palao, 1 Puri Paratha, 1 Naan, Salad, BBQ Sauce'},
+  {name:'BBQ Mini Platter', cat:'BBQ', price:1799, desc:'1 Chicken Tikka Pcs, 1pcs Turkish Kabab, 1pcs Malai Boti, Afghani Palao, 2pcs Behari Boti, Fresh Green Salad, 2pcs Chicken Tikka Boti, BBQ Sauce, 1pcs Reshmi Kabab'},
+  // MANDI
+  {name:'Mutton Mandi With Rice', cat:'Handi', price:3999, desc:'Full mutton mandi with aromatic rice – Full'},
+  {name:'Mutton Joint with Rice', cat:'Handi', price:1599, desc:'Tender mutton joint with rice'},
+  {name:'Chicken Mandi With Rice', cat:'Handi', price:1999, desc:'Slow-cooked chicken mandi with fragrant rice'},
+  {name:'Chicken Chargah', cat:'Handi', price:1399, desc:'Whole roasted chicken specialty'},
+  // PASTA
+  {name:'Lasagna Pasta', cat:'Pasta', price:999, desc:'Classic layered pasta'},
+  {name:'Flaming Pasta', cat:'Pasta', price:949, desc:'Spicy flaming pasta creation'},
+  {name:'Crunch Pasta', cat:'Pasta', price:949, desc:'Crispy topped pasta'},
+  {name:'Chicken Pasta', cat:'Pasta', price:949, desc:'Chicken in creamy pasta'},
+  {name:'Mexican Pasta', cat:'Pasta', price:899, desc:'Spicy Mexican style pasta'},
+  {name:'White Pepper Pasta', cat:'Pasta', price:999, desc:'Aromatic white pepper pasta'},
+  {name:'Mushroom Sauce Pasta', cat:'Pasta', price:999, desc:'Creamy mushroom pasta'},
+  // STEAKS
+  {name:'O-Bailia Cheese Steak With Fried Rice', cat:'Chinese', price:1299, desc:'Signature cheese steak'},
+  {name:'Mexican Steak With Fried Rice', cat:'Chinese', price:1249, desc:'Zesty Mexican steak'},
+  {name:'American Steak With Fried Rice', cat:'Chinese', price:1249, desc:'Classic American steak'},
+  {name:'Tarragon Steak With Fried Rice', cat:'Chinese', price:1249, desc:'Herb-infused tarragon steak'},
+  {name:'Chicken Steak With Fried Rice', cat:'Chinese', price:1149, desc:'Grilled chicken steak'},
+  // CHINESE
+  {name:'Chicken Shashlik With Fried Rice', cat:'Chinese', price:999, desc:'Skewered chicken with fried rice'},
+  {name:'Chicken Manchurian With Fried Rice', cat:'Chinese', price:999, desc:'Indo-Chinese classic'},
+  {name:'Black Pepper Chicken With Fried Rice', cat:'Chinese', price:999, desc:'Spiced black pepper chicken'},
+  {name:'Chicken Chilli Dry With Fried Rice', cat:'Chinese', price:999, desc:'Dry chilli chicken'},
+  {name:'Kung Pao Chicken With Fried Rice', cat:'Chinese', price:999, desc:'Classic Kung Pao'},
+  {name:'Singapuri Rice', cat:'Chinese', price:999, desc:'Spicy Singaporean style rice'},
+  {name:'Fish Chilli Dry With Fried Rice', cat:'Chinese', price:1199, desc:'Crispy fish chilli dry'},
+  // FRIED RICE
+  {name:'Plain Steam Rice', cat:'Chinese', price:399, desc:'Steamed basmati rice'},
+  {name:'Egg Fried Rice', cat:'Chinese', price:499, desc:'Wok fried rice with egg'},
+  {name:'Vegetable Rice', cat:'Chinese', price:499, desc:'Stir-fried vegetable rice'},
+  {name:'Chicken Fried Rice', cat:'Chinese', price:549, desc:'Classic chicken fried rice'},
+  {name:'Chicken Masala Rice', cat:'Chinese', price:699, desc:'Spiced masala fried rice'},
+  // BIRYANI
+  {name:'Chicken Dum Biryani (Half)', cat:'Biryani', price:1049, desc:'Slow-cooked dum biryani - Half'},
+  {name:'Chicken Dum Biryani (Full)', cat:'Biryani', price:1799, desc:'Slow-cooked dum biryani - Full'},
+  {name:'Chicken Matka Biryani (Half)', cat:'Biryani', price:949, desc:'Clay pot biryani - Half'},
+  {name:'Chicken Matka Biryani (Full)', cat:'Biryani', price:1549, desc:'Clay pot biryani - Full'},
+  {name:'Chicken Degi Biryani', cat:'Biryani', price:2599, desc:'Large pot Degi biryani'},
+  {name:'Mutton Matka Biryani (Half)', cat:'Biryani', price:1499, desc:'Mutton clay pot biryani - Half'},
+  {name:'Mutton Matka Biryani (Full)', cat:'Biryani', price:2799, desc:'Mutton clay pot biryani - Full'},
+  {name:'Vegetable Biryani (Half)', cat:'Biryani', price:749, desc:'Garden vegetable biryani - Half'},
+  {name:'Vegetable Biryani (Full)', cat:'Biryani', price:1299, desc:'Garden vegetable biryani - Full'},
+  {name:'Afghani Pulao', cat:'Biryani', price:899, desc:'Fragrant Afghani style pulao'},
+  // NOODLES
+  {name:'Chicken Chowmein', cat:'Chinese', price:899, desc:'Stir-fried chicken noodles'},
+  {name:'Vegetable Chow Mein', cat:'Chinese', price:499, desc:'Vegetable noodle stir fry'},
+  // CHICKEN KARAHI
+  {name:'Chicken Regular Karahi (Half)', cat:'Karahi', price:1199, desc:'Classic chicken karahi - Half'},
+  {name:'Chicken Regular Karahi (Full)', cat:'Karahi', price:2299, desc:'Classic chicken karahi - Full'},
+  {name:'Chicken Shanwari Karahi (Half)', cat:'Karahi', price:1199, desc:'NWFP style karahi - Half'},
+  {name:'Chicken Shanwari Karahi (Full)', cat:'Karahi', price:2299, desc:'NWFP style karahi - Full'},
+  {name:'Chicken Green Karahi (Half)', cat:'Karahi', price:1199, desc:'Green herbs karahi - Half'},
+  {name:'Chicken Green Karahi (Full)', cat:'Karahi', price:2299, desc:'Green herbs karahi - Full'},
+  {name:'Chicken Peshawari Karahi (Half)', cat:'Karahi', price:1199, desc:'Peshawar style karahi - Half'},
+  {name:'Chicken Peshawari Karahi (Full)', cat:'Karahi', price:2299, desc:'Peshawar style karahi - Full'},
+  {name:'Chicken Butt Karahi (Half)', cat:'Karahi', price:1249, desc:'Renowned Butt style karahi - Half'},
+  {name:'Chicken Butt Karahi (Full)', cat:'Karahi', price:2349, desc:'Renowned Butt style karahi - Full'},
+  {name:'Chicken White Karahi (Half)', cat:'Karahi', price:1249, desc:'Creamy white karahi - Half'},
+  {name:'Chicken White Karahi (Full)', cat:'Karahi', price:2349, desc:'Creamy white karahi - Full'},
+  // MUTTON KARAHI
+  {name:'Mutton Regular Karahi (Half)', cat:'Karahi', price:1999, desc:'Classic mutton karahi - Half'},
+  {name:'Mutton Regular Karahi (Full)', cat:'Karahi', price:3699, desc:'Classic mutton karahi - Full'},
+  {name:'Mutton Shanwari Karahi (Full)', cat:'Karahi', price:3699, desc:'Shanwari mutton karahi - Full'},
+  {name:'Mutton Peshawari Karahi (Full)', cat:'Karahi', price:3699, desc:'Peshawari mutton karahi - Full'},
+  {name:'Mutton Brown Karahi (Full)', cat:'Karahi', price:3699, desc:'Rich brown gravy karahi'},
+  {name:'Mutton Green Karahi (Full)', cat:'Karahi', price:3699, desc:'Green herb mutton karahi'},
+  {name:'Mutton White Karahi (Full)', cat:'Karahi', price:3799, desc:'Creamy white mutton karahi'},
+  {name:'Mutton Butt Karahi (Full)', cat:'Karahi', price:3799, desc:'Premium Butt style mutton'},
+  // CHICKEN HANDI
+  {name:'O-Bailia Special Handi (Half)', cat:'Handi', price:1299, desc:'Signature house special handi - Half'},
+  {name:'O-Bailia Special Handi (Full)', cat:'Handi', price:2299, desc:'Signature house special handi - Full'},
+  {name:'Chicken Handi (Half)', cat:'Handi', price:1199, desc:'Classic chicken handi - Half'},
+  {name:'Chicken Handi (Full)', cat:'Handi', price:2199, desc:'Classic chicken handi - Full'},
+  {name:'Chicken Achari Handi (Half)', cat:'Handi', price:1199, desc:'Pickle spiced handi - Half'},
+  {name:'Chicken Achari Handi (Full)', cat:'Handi', price:2199, desc:'Pickle spiced handi - Full'},
+  {name:'Chicken White Handi (Half)', cat:'Handi', price:1249, desc:'Cream based white handi - Half'},
+  {name:'Chicken White Handi (Full)', cat:'Handi', price:2299, desc:'Cream based white handi - Full'},
+  {name:'Chicken Makhni Handi (Half)', cat:'Handi', price:1249, desc:'Buttery tomato handi - Half'},
+  {name:'Chicken Makhni Handi (Full)', cat:'Handi', price:2299, desc:'Buttery tomato handi - Full'},
+  {name:'Chicken Hari Mirch', cat:'Handi', price:1399, desc:'Green chilli chicken'},
+  {name:'Chicken Ginger', cat:'Handi', price:1399, desc:'Ginger infused chicken'},
+  {name:'Chicken Bharta', cat:'Handi', price:1399, desc:'Smoked chicken bharta'},
+  {name:'Kabab Masala', cat:'Handi', price:999, desc:'Kabab in spiced gravy'},
+  // MUTTON HANDI
+  {name:'Mutton Handi with Bone (Half)', cat:'Handi', price:2049, desc:'Rich bone-in mutton handi - Half'},
+  {name:'Mutton Handi with Bone (Full)', cat:'Handi', price:3499, desc:'Rich bone-in mutton handi - Full'},
+  {name:'Mutton White Handi with Bone (Half)', cat:'Handi', price:2099, desc:'Creamy white mutton handi - Half'},
+  {name:'Mutton White Handi with Bone (Full)', cat:'Handi', price:3599, desc:'Creamy white mutton handi - Full'},
+  // PANEER
+  {name:'Paneer Pizza (Small)', cat:'Paneer', price:599, desc:'Paneer topped pizza - Small'},
+  {name:'Paneer Pizza (Medium)', cat:'Paneer', price:999, desc:'Paneer topped pizza - Medium'},
+  {name:'Paneer Pizza (Large)', cat:'Paneer', price:1499, desc:'Paneer topped pizza - Large'},
+  {name:'Paneer Burger', cat:'Paneer', price:599, desc:'Crispy paneer burger'},
+  {name:'Paneer Sandwich', cat:'Paneer', price:599, desc:'Grilled paneer sandwich'},
+  {name:'Dhaka Paneer', cat:'Paneer', price:1099, desc:'Special Dhaka style paneer'},
+  {name:'Paneer Chilli Dry With Fried Rice', cat:'Paneer', price:1099, desc:'Crispy chilli paneer with rice'},
+  {name:'Paneer Shakhlik With Fried Rice', cat:'Paneer', price:1099, desc:'Skewered paneer with fried rice'},
+  {name:'Paneer Handi', cat:'Paneer', price:1399, desc:'Paneer in creamy gravy'},
+  {name:'Paneer Reshmi Handi', cat:'Paneer', price:1399, desc:'Silky smooth paneer handi'},
+  {name:'Paneer Achari Handi', cat:'Paneer', price:1399, desc:'Pickle spiced paneer handi'},
+  {name:'Paneer Karahi (Half)', cat:'Paneer', price:1599, desc:'Classic paneer karahi - Half'},
+  {name:'Paneer Karahi (Full)', cat:'Paneer', price:2999, desc:'Classic paneer karahi - Full'},
+  {name:'Paneer Biryani (Half)', cat:'Paneer', price:1049, desc:'Fragrant paneer biryani - Half'},
+  {name:'Paneer Biryani (Full)', cat:'Paneer', price:1799, desc:'Fragrant paneer biryani - Full'},
+  // APPETIZERS
+  {name:'Fish Cracker', cat:'Appetizers', price:299, desc:'Crispy fish crackers'},
+  {name:'Spicy Wings (6 Pcs)', cat:'Appetizers', price:649, desc:'Fiery chicken wings'},
+  {name:'Sesame Honey Wings (6 Pcs)', cat:'Appetizers', price:749, desc:'Sweet sesame wings'},
+  {name:'Drum Stick (4 Pcs)', cat:'Appetizers', price:749, desc:'Crispy drumsticks'},
+  {name:'Dhaka Chicken', cat:'Appetizers', price:999, desc:'Special Dhaka style chicken'},
+  {name:'Fish & Chips (4 Pcs)', cat:'Appetizers', price:1099, desc:'Classic fish and chips'},
+  {name:'Finger Fish (6 Pcs)', cat:'Appetizers', price:1099, desc:'Crispy fish fingers'},
+  {name:'Dhaka Fish', cat:'Appetizers', price:1099, desc:'Dhaka style fish preparation'},
+  // SOUPS
+  {name:'O-Bailia Special Soup (Single)', cat:'Appetizers', price:349, desc:'Signature special soup'},
+  {name:'O-Bailia Special Soup (Full)', cat:'Appetizers', price:949, desc:'Signature special soup - Full'},
+  {name:'Hot And Sour Soup (Single)', cat:'Appetizers', price:299, desc:'Spicy sour soup'},
+  {name:'Chicken Corn Soup (Single)', cat:'Appetizers', price:299, desc:'Classic corn soup'},
+  {name:'Schezwan Soup (Single)', cat:'Appetizers', price:299, desc:'Spicy Schezwan soup'},
+  // FRIED ITEMS
+  {name:'Nuggets (5 Pcs)', cat:'Appetizers', price:549, desc:'Crispy chicken nuggets'},
+  {name:'Hot Shot (8 Pcs)', cat:'Appetizers', price:549, desc:'Spicy hot shots'},
+  {name:'Chicken Broast (Quarter)', cat:'Appetizers', price:529, desc:'Crispy broasted chicken'},
+  {name:'Crispy Wings (8 Pcs)', cat:'Appetizers', price:699, desc:'Extra crispy wings'},
+  // FRIES
+  {name:'Regular Fries', cat:'Appetizers', price:299, desc:'Classic crispy fries'},
+  {name:'Masala Fries', cat:'Appetizers', price:299, desc:'Spiced masala fries'},
+  {name:'Loaded Fries', cat:'Appetizers', price:499, desc:'Loaded with toppings'},
+  {name:'Pizza Fries', cat:'Appetizers', price:549, desc:'Pizza flavored fries'},
+  // BURGERS
+  {name:'King Crunch Burger', cat:'Burgers', price:699, desc:'Supreme crispy burger'},
+  {name:'Mighty Burger', cat:'Burgers', price:649, desc:'Hearty stacked burger'},
+  {name:'Lava Burger', cat:'Burgers', price:599, desc:'Molten cheese lava burger'},
+  {name:'Pizza Burger', cat:'Burgers', price:599, desc:'Pizza and burger fusion'},
+  {name:'Crispy Zinger Burger', cat:'Burgers', price:529, desc:'Classic crispy zinger'},
+  {name:'Tikka Burger', cat:'Burgers', price:449, desc:'Spiced tikka burger'},
+  {name:'Chicken Chapli Burger', cat:'Burgers', price:449, desc:'Peshawari chapli burger'},
+  {name:'Chicken Burger', cat:'Burgers', price:399, desc:'Classic chicken burger'},
+  // SANDWICHES
+  {name:'Tacos Sandwich', cat:'Burgers', price:699, desc:'Mexican taco sandwich'},
+  {name:'O-Bailia Special Sandwich', cat:'Burgers', price:599, desc:'House signature sandwich'},
+  {name:'Mexican Sandwich', cat:'Burgers', price:599, desc:'Zesty Mexican sandwich'},
+  {name:'BBQ Sandwich', cat:'Burgers', price:499, desc:'Smoky BBQ sandwich'},
+  {name:'Crunch Sandwich', cat:'Burgers', price:499, desc:'Extra crispy sandwich'},
+  {name:'Club Sandwich', cat:'Burgers', price:479, desc:'Classic triple decker'},
+  {name:'Vegetable Sandwich', cat:'Burgers', price:399, desc:'Fresh garden sandwich'},
+  // PIZZA
+  {name:'OB Special Pizza (Medium)', cat:'Pizza', price:999, desc:'O-Bailia house special'},
+  {name:'OB Special Pizza (Large)', cat:'Pizza', price:1499, desc:'O-Bailia house special - Large'},
+  {name:'Crown Crust Pizza (Medium)', cat:'Pizza', price:999, desc:'Stuffed crown crust'},
+  {name:'Kabab Crust Pizza (Medium)', cat:'Pizza', price:999, desc:'Kabab stuffed crust'},
+  {name:'Lazania Pizza (Medium)', cat:'Pizza', price:999, desc:'Lasagna style pizza'},
+  {name:'Crispy Chicken Pizza (Small)', cat:'Pizza', price:599, desc:'Crispy chicken topping'},
+  {name:'Supreme Pizza (Small)', cat:'Pizza', price:599, desc:'Supreme loaded pizza'},
+  {name:'Kababish Pizza (Small)', cat:'Pizza', price:599, desc:'Kabab topped pizza'},
+  {name:'Malai Boti Pizza (Small)', cat:'Pizza', price:599, desc:'Malai boti pizza'},
+  {name:'Tikka Pizza (Small)', cat:'Pizza', price:549, desc:'Chicken tikka pizza'},
+  {name:'Fajita Pizza (Small)', cat:'Pizza', price:549, desc:'Fajita chicken pizza'},
+  {name:'Bonfire Pizza (Small)', cat:'Pizza', price:549, desc:'Smoky bonfire pizza'},
+  {name:'Cheese Lover Pizza (Small)', cat:'Pizza', price:499, desc:'Four cheese pizza'},
+  {name:'Vegetable Pizza (Small)', cat:'Pizza', price:499, desc:'Garden fresh vegetable'},
+  // ROLLS
+  {name:'Malai Boti Roll (Chatni)', cat:'Rolls', price:269, desc:'Creamy malai boti roll'},
+  {name:'Behari Roll (Chatni)', cat:'Rolls', price:269, desc:'Spiced behari roll'},
+  {name:'Chicken Chatni Roll', cat:'Rolls', price:269, desc:'Chicken chatni roll'},
+  {name:'Zinger Roll (Chatni)', cat:'Rolls', price:269, desc:'Crispy zinger roll'},
+  {name:'Kabab Roll (Chatni)', cat:'Rolls', price:269, desc:'Seekh kabab roll'},
+  {name:'Vegetable Roll (Chatni)', cat:'Rolls', price:189, desc:'Fresh vegetable roll'},
+  {name:'Chicken Cheese Paratha', cat:'Rolls', price:449, desc:'Cheese chicken paratha roll'},
+  {name:'Chicken Paratha', cat:'Rolls', price:399, desc:'Grilled chicken paratha'},
+  {name:'Aloo Paratha', cat:'Rolls', price:269, desc:'Classic potato paratha'},
+  // BEVERAGES
+  {name:'Green Tea', cat:'Beverages', price:79, desc:'Fresh green tea'},
+  {name:'Doodh Pati Chai', cat:'Beverages', price:100, desc:'Classic milk tea'},
+  {name:'Tea In Disposable Cane', cat:'Beverages', price:120, desc:'Tea in cane cup'},
+  {name:'Coffee', cat:'Beverages', price:299, desc:'Premium coffee'},
+  {name:'Mineral Water Large', cat:'Beverages', price:120, desc:'Large mineral water'},
+  {name:'Mineral Water Small', cat:'Beverages', price:69, desc:'Small mineral water'},
+  {name:'Soft Drink', cat:'Beverages', price:120, desc:'Chilled soft drink'},
+  {name:'Fresh Lime', cat:'Beverages', price:189, desc:'Freshly squeezed lime'},
+  {name:'Cold Coffee', cat:'Beverages', price:349, desc:'Iced cold coffee'},
+  {name:'Fresh Seasonal Fruit Juice', cat:'Beverages', price:299, desc:'Seasonal fresh juice'},
+  {name:'Lassi Sweet / Saltish', cat:'Beverages', price:199, desc:'Traditional yogurt drink'},
+  // MOCKTAILS
+  {name:'Mint Margarita', cat:'Beverages', price:259, desc:'Refreshing mint mocktail'},
+  {name:'Blue Berry Margarita', cat:'Beverages', price:259, desc:'Blueberry mocktail'},
+  {name:'Peach Margarita', cat:'Beverages', price:259, desc:'Peachy mocktail'},
+  {name:'Strawberry Margarita', cat:'Beverages', price:259, desc:'Strawberry mocktail'},
+  {name:'Pina Colada', cat:'Beverages', price:349, desc:'Tropical Pina Colada'},
+  {name:'Strawberry Colada', cat:'Beverages', price:349, desc:'Strawberry Colada'},
+  {name:'Blue Berry Colada', cat:'Beverages', price:349, desc:'Blueberry Colada'},
+  {name:'Strawberry Smoothie', cat:'Beverages', price:399, desc:'Fresh strawberry smoothie'},
+  {name:'Peach Smoothie', cat:'Beverages', price:399, desc:'Fresh peach smoothie'},
+  // MILKSHAKES
+  {name:'Dry Fruit Shake', cat:'Beverages', price:499, desc:'Rich dry fruit shake'},
+  {name:'Injeer Shake', cat:'Beverages', price:499, desc:'Fig milkshake'},
+  {name:'Kajhoor Shake', cat:'Beverages', price:399, desc:'Date milkshake'},
+  {name:'Banana Shake', cat:'Beverages', price:299, desc:'Fresh banana shake'},
+  {name:'Pineapple Shake', cat:'Beverages', price:349, desc:'Tropical pineapple'},
+  {name:'Strawberry Shake', cat:'Beverages', price:349, desc:'Strawberry milkshake'},
+  {name:'Mango Shake', cat:'Beverages', price:349, desc:'Mango milkshake'},
+  {name:'Vanilla Shake', cat:'Beverages', price:349, desc:'Classic vanilla shake'},
+  {name:'Chocolate Shake', cat:'Beverages', price:349, desc:'Rich chocolate shake'},
+  {name:'Oreo Shake', cat:'Beverages', price:399, desc:'Oreo cookies shake'},
+  {name:'Kitkat Shake', cat:'Beverages', price:449, desc:'Kitkat milkshake'},
+  // ICE CREAM
+  {name:'Vanilla Ice Cream (Single)', cat:'Desserts', price:120, desc:'Classic vanilla'},
+  {name:'Vanilla Ice Cream (Double)', cat:'Desserts', price:220, desc:'Double scoop vanilla'},
+  {name:'Tutti Fruitti Ice Cream (Single)', cat:'Desserts', price:120, desc:'Tutti fruitti flavour'},
+  {name:'Caramel Ice Cream (Single)', cat:'Desserts', price:120, desc:'Rich caramel'},
+  {name:'Strawberry Ice Cream (Single)', cat:'Desserts', price:120, desc:'Strawberry delight'},
+  {name:'Mango Ice Cream (Single)', cat:'Desserts', price:120, desc:'Fresh mango'},
+  {name:'Pista Ice Cream (Single)', cat:'Desserts', price:120, desc:'Pistachio flavour'},
+  {name:'Kulfa Ice Cream (Single)', cat:'Desserts', price:120, desc:'Traditional kulfa'},
+  {name:'Blue Barry Ice Cream (Single)', cat:'Desserts', price:120, desc:'Blueberry scoop'},
+  {name:'Pineapple Ice Cream (Single)', cat:'Desserts', price:120, desc:'Tropical pineapple'},
+  {name:'Orange Ice Cream (Single)', cat:'Desserts', price:120, desc:'Citrus orange'},
+  // DESSERTS
+  {name:'Kulfa Falooda', cat:'Desserts', price:349, desc:'Traditional kulfa falooda'},
+  {name:'O-Bailia Special Faloda', cat:'Desserts', price:399, desc:'Signature special falooda'},
+  {name:'Khumali', cat:'Desserts', price:999, desc:'Special Khumali dessert'},
+  {name:'Nutella Steam Pizza', cat:'Desserts', price:999, desc:'Warm Nutella pizza dessert'},
+];
+
+// Restore from localStorage
+const saved = localStorage.getItem('ob_menu');
+if (saved) { try { menuData = JSON.parse(saved); } catch(e){} }
+
+function saveMenu() { localStorage.setItem('ob_menu', JSON.stringify(menuData)); }
+
+/* ===== LOADER ===== */
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    document.getElementById('loader').classList.add('hidden');
+    revealObserver();
+    countStats();
+  }, 1800);
+});
+
+/* ===== CURSOR ===== */
+const dot = document.getElementById('cursorDot');
+const ring = document.getElementById('cursorRing');
+document.addEventListener('mousemove', e => {
+  dot.style.left = e.clientX + 'px';
+  dot.style.top = e.clientY + 'px';
+  ring.style.left = e.clientX + 'px';
+  ring.style.top = e.clientY + 'px';
+});
+document.addEventListener('mouseover', e => {
+  if (e.target.matches('a,button,.menu-card,.feature-card,.order-card')) ring.classList.add('hovering');
+});
+document.addEventListener('mouseout', () => ring.classList.remove('hovering'));
+
+/* ===== NAVBAR ===== */
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+  navbar.classList.toggle('scrolled', window.scrollY > 60);
+  // Update active nav link
+  const sections = document.querySelectorAll('section[id]');
+  sections.forEach(s => {
+    const top = s.offsetTop - 100;
+    if (window.scrollY >= top && window.scrollY < top + s.offsetHeight) {
+      document.querySelectorAll('.nav-link').forEach(a => a.classList.remove('active'));
+      const active = document.querySelector(`.nav-link[href="#${s.id}"]`);
+      if (active) active.classList.add('active');
+    }
+  });
+});
+document.getElementById('hamburger').addEventListener('click', () => {
+  document.getElementById('navLinks').classList.toggle('open');
+});
+document.querySelectorAll('.nav-link').forEach(a => {
+  a.addEventListener('click', () => document.getElementById('navLinks').classList.remove('open'));
+});
+
+/* ===== COUNTER ===== */
+function countStats() {
+  document.querySelectorAll('.hero-stat-num').forEach(el => {
+    const target = parseInt(el.dataset.target);
+    let count = 0;
+    const step = Math.max(1, Math.floor(target / 60));
+    const interval = setInterval(() => {
+      count = Math.min(count + step, target);
+      el.textContent = count >= 1000 ? (count/1000).toFixed(1)+'K' : count;
+      if (count >= target) clearInterval(interval);
+    }, 30);
+  });
+}
+
+/* ===== REVEAL ===== */
+function revealObserver() {
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => { if(e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+}
+
+/* ===== MENU RENDER ===== */
+let currentCat = 'all';
+function renderMenu(cat) {
+  currentCat = cat;
+  const grid = document.getElementById('menuGrid');
+  const items = cat === 'all' ? menuData : menuData.filter(i => i.cat === cat);
+  grid.innerHTML = items.length ? items.map((item, idx) => `
+    <div class="menu-card">
+      <div class="menu-card-cat">${item.cat}</div>
+      <div class="menu-card-name">${item.name}</div>
+      <div class="menu-card-desc">${item.desc || ''}</div>
+      <div class="menu-card-prices">
+        <span class="price-tag">Rs. ${item.price.toLocaleString()}</span>
+      </div>
+    </div>
+  `).join('') : '<div style="color:var(--muted);text-align:center;padding:48px;grid-column:1/-1;">No items in this category.</div>';
+}
+
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    renderMenu(btn.dataset.cat);
+  });
+});
+renderMenu('all');
+
+/* ===== BOOKING ===== */
+function submitBooking() {
+  const name = document.getElementById('bkName').value.trim();
+  const phone = document.getElementById('bkPhone').value.trim();
+  const date = document.getElementById('bkDate').value;
+  const time = document.getElementById('bkTime').value;
+  const guests = document.getElementById('bkGuests').value;
+  const occasion = document.getElementById('bkOccasion').value;
+  const note = document.getElementById('bkNote').value.trim();
+  if (!name || !phone || !date || !time) { showToast('Please fill all required fields'); return; }
+  const msg = encodeURIComponent(
+    `*New Reservation — O-Bailia Restaurant*\n\n` +
+    `👤 Name: ${name}\n📞 Phone: ${phone}\n📅 Date: ${date}\n🕐 Time: ${time}\n` +
+    `👥 Guests: ${guests}\n🎉 Occasion: ${occasion}\n📝 Note: ${note || 'None'}`
+  );
+  window.open(`https://wa.me/923357367364?text=${msg}`, '_blank');
+  showToast('Reservation sent via WhatsApp!');
+}
+
+/* ===== ADMIN ===== */
+const ADMIN_CREDS = { user: 'obailia', pass: 'ob2025' };
+function adminLogin() {
+  const u = document.getElementById('adminUser').value;
+  const p = document.getElementById('adminPass').value;
+  if (u === ADMIN_CREDS.user && p === ADMIN_CREDS.pass) {
+    document.getElementById('adminLogin').style.display = 'none';
+    document.getElementById('adminDash').style.display = 'block';
+    renderAdminList();
+    showToast('Welcome, Admin!');
+  } else { showToast('Invalid credentials'); }
+}
+function adminLogout() {
+  document.getElementById('adminLogin').style.display = 'block';
+  document.getElementById('adminDash').style.display = 'none';
+  document.getElementById('adminUser').value = '';
+  document.getElementById('adminPass').value = '';
+}
+function renderAdminList() {
+  const list = document.getElementById('adminMenuList');
+  list.innerHTML = menuData.map((item, i) => `
+    <div class="admin-menu-item">
+      <div class="admin-item-info">
+        <div class="admin-item-name">${item.name}</div>
+        <div class="admin-item-cat">${item.cat}</div>
+      </div>
+      <div class="admin-item-price">Rs. ${item.price.toLocaleString()}</div>
+      <div class="admin-item-actions">
+        <button class="btn-edit" onclick="editItem(${i})">Edit</button>
+        <button class="btn-del" onclick="deleteItem(${i})">Delete</button>
+      </div>
+    </div>
+  `).join('') || '<p style="color:var(--muted);padding:16px;">No menu items.</p>';
+}
+function deleteItem(i) {
+  if (confirm('Delete this item?')) {
+    menuData.splice(i, 1);
+    saveMenu(); renderAdminList(); renderMenu(currentCat);
+    showToast('Item deleted');
+  }
+}
+function editItem(i) {
+  const item = menuData[i];
+  document.getElementById('iName').value = item.name;
+  document.getElementById('iCat').value = item.cat;
+  document.getElementById('iPrice').value = item.price;
+  document.getElementById('iDesc').value = item.desc || '';
+  document.getElementById('editIdx').value = i;
+  document.getElementById('modalTitle').textContent = 'Edit Menu Item';
+  setPriceType('single', document.querySelector('.price-type-btn'));
+  openItemModal();
+}
+
+/* ===== MODAL ===== */
+let priceType = 'single';
+function setPriceType(type, btn) {
+  priceType = type;
+  document.querySelectorAll('.price-type-btn').forEach(b => b.classList.remove('active'));
+  if(btn) btn.classList.add('active');
+  document.getElementById('priceSingle').style.display = type === 'single' ? 'block' : 'none';
+  document.getElementById('priceHF').style.display = type === 'hf' ? 'block' : 'none';
+  document.getElementById('priceSML').style.display = type === 'sml' ? 'block' : 'none';
+}
+function openItemModal() {
+  document.getElementById('modalOverlay').classList.add('open');
+}
+function closeItemModal() {
+  document.getElementById('modalOverlay').classList.remove('open');
+  document.getElementById('iName').value = '';
+  document.getElementById('iDesc').value = '';
+  document.getElementById('iPrice').value = '';
+  document.getElementById('editIdx').value = -1;
+  document.getElementById('modalTitle').textContent = 'Add Menu Item';
+}
+function saveItem() {
+  const name = document.getElementById('iName').value.trim();
+  const cat = document.getElementById('iCat').value;
+  const desc = document.getElementById('iDesc').value.trim();
+  const editIdx = parseInt(document.getElementById('editIdx').value);
+  let price = 0;
+  if (priceType === 'single') price = parseInt(document.getElementById('iPrice').value) || 0;
+  else if (priceType === 'hf') price = parseInt(document.getElementById('iPriceH').value) || 0;
+  else price = parseInt(document.getElementById('iPriceS').value) || 0;
+  if (!name || !price) { showToast('Name and price required'); return; }
+  const item = { name, cat, price, desc };
+  if (editIdx >= 0) { menuData[editIdx] = item; showToast('Item updated!'); }
+  else { menuData.push(item); showToast('Item added!'); }
+  saveMenu(); closeItemModal(); renderAdminList(); renderMenu(currentCat);
+}
+
+/* ===== AI ASSISTANT ===== */
+const RES = {
+  timings: 'We are open daily from 11:00 AM to 2:00 AM 🕐',
+  location: 'We are located on Kot Sultan Nawabshah Road, Sanghar, Sindh, Pakistan 📍',
+  booking: 'Call us at 0335-7367364 or 0325-7367364 to reserve a table, or scroll up to our Reservation form! 📞',
+  order: 'You can order via WhatsApp (0335-7367364), call us, or visit in person for Take Away 📦',
+  delivery: 'Yes! We offer home delivery across Sanghar. WhatsApp us at 0335-7367364 🚗',
+  menu: 'We serve BBQ, Karahi, Handi, Biryani, Pizza, Burgers, Chinese, Pasta, Paneer, Rolls, Desserts and much more! 🍽️',
+  price: 'Our menu ranges from Rs. 30 (bread) to Rs. 4,199 (BBQ Full Platter). Scroll up to see our full menu!',
+  contact: 'Phone: 0335-7367364 | 0325-7367364 | Manager: 0334-7367367',
+  default: "I'm here to help! For reservations call 0335-7367364, for orders WhatsApp the same number. Visit our menu section to explore all dishes! 😊",
+};
+function getReply(msg) {
+  msg = msg.toLowerCase();
+  if (msg.includes('time') || msg.includes('open') || msg.includes('close') || msg.includes('hour')) return RES.timings;
+  if (msg.includes('locat') || msg.includes('address') || msg.includes('where')) return RES.location;
+  if (msg.includes('book') || msg.includes('reserv') || msg.includes('table')) return RES.booking;
+  if (msg.includes('deliver')) return RES.delivery;
+  if (msg.includes('order')) return RES.order;
+  if (msg.includes('menu') || msg.includes('food') || msg.includes('dish') || msg.includes('eat')) return RES.menu;
+  if (msg.includes('price') || msg.includes('cost') || msg.includes('rate') || msg.includes('how much')) return RES.price;
+  if (msg.includes('contact') || msg.includes('call') || msg.includes('number') || msg.includes('phone')) return RES.contact;
+  return RES.default;
+}
+function toggleAssistant() {
+  document.getElementById('aiPanel').classList.toggle('open');
+}
+function quickAsk(q) { document.getElementById('aiInput').value = q; sendAI(); }
+function sendAI() {
+  const input = document.getElementById('aiInput');
+  const msg = input.value.trim();
+  if (!msg) return;
+  const msgs = document.getElementById('aiMsgs');
+  msgs.innerHTML += `<div class="msg user"><div class="msg-bubble">${msg}</div></div>`;
+  input.value = '';
+  setTimeout(() => {
+    msgs.innerHTML += `<div class="msg bot"><div class="msg-bubble">${getReply(msg)}</div></div>`;
+    msgs.scrollTop = msgs.scrollHeight;
+  }, 500);
+  msgs.scrollTop = msgs.scrollHeight;
+}
+
+/* ===== TOAST ===== */
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3000);
+}
+</script>
+</body>
+</html>
